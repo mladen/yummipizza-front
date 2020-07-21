@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Album from './Album.js';
+import Pizzeria from './Pizzeria.js';
 
 function App() {
   return (
     <div className="App">
-      <Album></Album>
+      <Pizzeria></Pizzeria>
     </div>
   );
 }
