@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heroFont: {
     fontFamily: 'Leckerli One, cursive',
+    textShadow: '2px 2px 2px black',
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -109,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export default function Album() {
+export default function Pizzeria() {
   const classes = useStyles();
 
   return (
@@ -132,6 +133,7 @@ export default function Album() {
           </MenuItem>
         </Toolbar>
       </AppBar>
+
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -163,7 +165,7 @@ export default function Album() {
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
-	              <Card className={classes.card} align="left">
+                <Card className={classes.card} align="left">
                 {/* <CardHeader
                   avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
@@ -178,7 +180,7 @@ export default function Album() {
                   title="Shrimp and Chorizo Paella"
                   subheader="September 14, 2016"
                 /> */}
-	                <CardMedia className={classes.cardMedia} image="./pizza1.png" title="Our Yummi Pizza.. Mmm.."/>
+                  <CardMedia className={classes.cardMedia} image="./pizza1.png" title="Our Yummi Pizza.. Mmm.."/>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
                       Pizza no. {card}
@@ -188,7 +190,7 @@ export default function Album() {
                     </Typography>
                   </CardContent>
                   <CardActions className={classes.cardActionButtons}>
-                    <Button size="medium" variant="outlined" color="primary">
+                    <Button onClick={() => { alert('clicked') }} size="medium" variant="outlined" color="primary">
                       Details
                     </Button>
                     <Button size="medium" variant="contained" color="secondary" startIcon={<ShoppingBasket />}>
@@ -206,6 +208,7 @@ export default function Album() {
           </Grid>
         </Container>
       </main>
+
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
