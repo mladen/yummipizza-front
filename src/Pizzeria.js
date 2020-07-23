@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -20,6 +20,8 @@ import YourPizzasIcon from '@material-ui/icons/LocalPizzaOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+
+import { PizzaContext } from './PizzaContext';
 
 function Copyright() {
   return (
@@ -108,10 +110,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Pizzeria() {
   const classes = useStyles();
+
+  const [pizzas, setPizzas] = useContext(PizzaContext);
 
   return (
     <React.Fragment>
@@ -125,7 +129,7 @@ export default function Pizzeria() {
 
           <MenuItem align="right">
             <IconButton aria-label="show 11 new notifications" color="inherit">
-              <Badge badgeContent={3} color="secondary">
+              <Badge badgeContent={pizzas.length} color="secondary">
                 <YourPizzasIcon />
               </Badge>
             </IconButton>
@@ -144,6 +148,8 @@ export default function Pizzeria() {
             <Typography variant="h5" align="center" paragraph>
               Order some yummi pizzas!
             </Typography>
+
+            {/* Hero buttons */}
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
@@ -160,47 +166,29 @@ export default function Pizzeria() {
             </div>
           </Container>
         </div>
+
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {pizzas.map((pizza) => (
+              <Grid item key={pizza.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card} align="left">
-                {/* <CardHeader
-                  avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                      {card}
-                    </Avatar>
-                  }
-                  action={
-                    <IconButton aria-label="settings">
-                      <MoreVertIcon />
-                    </IconButton>
-                  }
-                  title="Shrimp and Chorizo Paella"
-                  subheader="September 14, 2016"
-                /> */}
                   <CardMedia className={classes.cardMedia} image="./pizza1.png" title="Our Yummi Pizza.. Mmm.."/>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Pizza no. {card}
+                      Pizza {pizza.id}: {pizza.name}
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the content.
+                      {pizza.description}
                     </Typography>
                   </CardContent>
-                  <CardActions className={classes.cardActionButtons}>
+                  <CardActions className={classes.pizzaActionButtons}>
                     <Button onClick={() => { alert('clicked') }} size="medium" variant="outlined" color="primary">
                       Details
                     </Button>
                     <Button size="medium" variant="contained" color="secondary" startIcon={<ShoppingBasket />}>
-                      Add to Card
+                      Add to cart
                     </Button>
-                  </CardActions>
-                  <CardActions disableSpacing>
-                    {/* <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton> */}
                   </CardActions>
                 </Card>
               </Grid>
