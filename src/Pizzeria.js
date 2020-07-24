@@ -20,8 +20,10 @@ import YourPizzasIcon from '@material-ui/icons/LocalPizzaOutlined';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+import CurrencyUsd from '@material-ui/icons/AttachMoney';
 
 import { PizzaContext } from './PizzaContext';
+import { CartContext } from './CartContext';
 
 function Copyright() {
   return (
@@ -116,6 +118,13 @@ export default function Pizzeria() {
   const classes = useStyles();
 
   const [pizzas, setPizzas] = useContext(PizzaContext);
+  const [cart, setCart] = useContext(CartContext);
+
+  const addPizzaToCart = (e) => {
+    console.log(e.target.parentElement.value);
+
+    setCart(prevCartPizzas => [...prevCartPizzas, e.target.parentElement.value]);
+  }
 
   return (
     <React.Fragment>
@@ -129,7 +138,7 @@ export default function Pizzeria() {
 
           <MenuItem align="right">
             <IconButton aria-label="show 11 new notifications" color="inherit">
-              <Badge badgeContent={pizzas.length} color="secondary">
+              <Badge badgeContent={cart.length} color="secondary">
                 <YourPizzasIcon />
               </Badge>
             </IconButton>
@@ -182,11 +191,11 @@ export default function Pizzeria() {
                       {pizza.description}
                     </Typography>
                   </CardContent>
-                  <CardActions className={classes.pizzaActionButtons}>
-                    <Button onClick={() => { alert('clicked') }} size="medium" variant="outlined" color="primary">
-                      Details
+                  <CardActions className={classes.cardActionButtons}>
+                    <Button size="medium" variant="outlined" color="primary">
+                      <CurrencyUsd />{pizza.price}
                     </Button>
-                    <Button size="medium" variant="contained" color="secondary" startIcon={<ShoppingBasket />}>
+                    <Button onClick={addPizzaToCart} value={pizza.id} size="medium" variant="contained" color="secondary" startIcon={<ShoppingBasket />}>
                       Add to cart
                     </Button>
                   </CardActions>
