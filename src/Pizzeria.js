@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: red.A700,
   },
+  title: {
+    flexGrow: 1,
+    textAlign: 'left',
+  },
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -126,7 +130,7 @@ export default function Pizzeria() {
       <AppBar position="relative" className={classes.header}>
         <Toolbar>
           <PizzaIcon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant="h6" color="inherit" noWrap className={classes.title}>
             The Yummi Pizza
           </Typography>
 
