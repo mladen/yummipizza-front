@@ -3,7 +3,7 @@ import React, { useState, createContext } from 'react';
 export const PizzaContext = createContext();
 
 export const PizzaProvider = props => {
-  const [pizzas, setPizzas] = React.useState([
+  const [pizzas, setPizzas] = useState([
     {
       id: 1,
       name: "Bacon Pizza",

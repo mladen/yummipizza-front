@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -117,13 +117,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Pizzeria() {
   const classes = useStyles();
 
-  const [pizzas, setPizzas] = useContext(PizzaContext);
-  const [cart, setCart] = useContext(CartContext);
+  const [pizzas] = useContext(PizzaContext);
+  const { cart, setCart, total, cartItems } = useContext(CartContext);
 
   const addPizzaToCart = (e) => {
-    console.log(e.target.parentElement.value);
-
-    setCart(prevCartPizzas => [...prevCartPizzas, e.target.parentElement.value]);
+    const newPizza = JSON.parse(e.target.parentElement.value);
+    setCart(prevCartPizzas => [...prevCartPizzas, newPizza]);
   }
 
   return (
@@ -142,7 +141,7 @@ export default function Pizzeria() {
                 <YourPizzasIcon />
               </Badge>
             </IconButton>
-            <p>Your pizzas</p>
+            <p>Your pizzas (${total})</p>
           </MenuItem>
         </Toolbar>
       </AppBar>
@@ -195,7 +194,13 @@ export default function Pizzeria() {
                     <Button size="medium" variant="outlined" color="primary">
                       <CurrencyUsd />{pizza.price}
                     </Button>
-                    <Button onClick={addPizzaToCart} value={pizza.id} size="medium" variant="contained" color="secondary" startIcon={<ShoppingBasket />}>
+                    <Button
+                      onClick={addPizzaToCart}
+                      value={JSON.stringify({id: pizza.id, name: pizza.name, price: parseInt(pizza.price)})}
+                      size="medium"
+                      variant="contained"
+                      color="secondary"
+                      startIcon={<ShoppingBasket />}>
                       Add to cart
                     </Button>
                   </CardActions>
