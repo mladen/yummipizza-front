@@ -118,7 +118,7 @@ export default function Pizzeria() {
   const classes = useStyles();
 
   const [pizzas] = useContext(PizzaContext);
-  const { cart, setCart, total, cartItems } = useContext(CartContext);
+  const { cart, setCart, total } = useContext(CartContext);
 
   const addPizzaToCart = (e) => {
     const newPizza = JSON.parse(e.target.parentElement.value);

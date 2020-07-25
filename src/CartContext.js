@@ -9,9 +9,6 @@ export const CartProvider = props => {
     { id: 46, name: "Special test pizza 3", price: 3 }
   ]);
   const [total, setTotal] = useState(0);
-  const [cartItems, setCartItems] = useState(0);
-
-  // console.log(cart);
 
   React.useEffect(() => {
     // TODO: Local storage
@@ -46,8 +43,6 @@ export const CartProvider = props => {
         setCart,
         total,
         // setTotal,
-        cartItems,
-        // setCartItems
       }}>{ props.children }</CartContext.Provider>
   )
 }
