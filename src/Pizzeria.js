@@ -118,12 +118,7 @@ export default function Pizzeria() {
   const classes = useStyles();
 
   const [pizzas] = useContext(PizzaContext);
-  const { cart, setCart, total } = useContext(CartContext);
-
-  const addPizzaToCart = (e) => {
-    const newPizza = JSON.parse(e.target.parentElement.value);
-    setCart(prevCartPizzas => [...prevCartPizzas, newPizza]);
-  }
+  const { cart, addToCart, total } = useContext(CartContext);
 
   return (
     <React.Fragment>
@@ -195,7 +190,7 @@ export default function Pizzeria() {
                       <CurrencyUsd />{pizza.price}
                     </Button>
                     <Button
-                      onClick={addPizzaToCart}
+                      onClick={addToCart}
                       value={JSON.stringify({id: pizza.id, name: pizza.name, price: parseInt(pizza.price)})}
                       size="medium"
                       variant="contained"

@@ -29,10 +29,11 @@ export const CartProvider = props => {
   // // TODO: Decrease amount
   // const decreaseAmount = id => {};
   // // TODO: Add to cart
-  // const addToCart = product => {
-  //   // const {id, name, price} = product;
-  //   debugger;
-  // };
+  const addToCart = e => {
+    // const {id, name, price} = product;
+    const newPizza = JSON.parse(e.target.parentElement.value);
+    setCart(prevCartPizzas => [...prevCartPizzas, newPizza]);
+  };
   // // TODO: Clear cart
   // const clearCart = () => {};
 
@@ -40,9 +41,8 @@ export const CartProvider = props => {
     <CartContext.Provider
       value={{
         cart,
-        setCart,
-        total,
-        // setTotal,
+        addToCart,
+        total
       }}>{ props.children }</CartContext.Provider>
   )
 }
