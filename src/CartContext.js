@@ -3,11 +3,7 @@ import React, { useState, createContext } from 'react';
 export const CartContext = createContext();
 
 export const CartProvider = props => {
-  const [cart, setCart] = useState([
-    { id: 44, name: "Special test pizza 1", price: 1 },
-    { id: 45, name: "Special test pizza 2", price: 4 },
-    { id: 46, name: "Special test pizza 3", price: 3 }
-  ]);
+  const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
 
   React.useEffect(() => {
