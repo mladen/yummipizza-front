@@ -134,14 +134,16 @@ export default function Pizzeria() {
             The Yummi Pizza
           </Typography>
 
-          <MenuItem align="right">
-            <IconButton aria-label="show 11 new notifications" color="inherit">
-              <Badge badgeContent={cart.length} color="secondary">
-                <YourPizzasIcon />
-              </Badge>
-            </IconButton>
-            <p>Your pizzas (${total})</p>
-          </MenuItem>
+          <Link href="cart" color="inherit">
+            <MenuItem align="right">
+              <IconButton aria-label="show 11 new notifications" color="inherit">
+                <Badge badgeContent={cart.length} color="secondary">
+                  <YourPizzasIcon />
+                </Badge>
+              </IconButton>
+                <p>Your pizzas (${total})</p>
+            </MenuItem>
+          </Link>
         </Toolbar>
       </AppBar>
 
