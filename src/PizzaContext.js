@@ -62,5 +62,5 @@ export const PizzaProvider = props => {
     },
   ]);
 
-  return <PizzaContext.Provider value={[pizzas, setPizzas]}>{ props.children }</PizzaContext.Provider>;
+  return <PizzaContext.Provider value={{pizzas}}>{ props.children }</PizzaContext.Provider>;
 }

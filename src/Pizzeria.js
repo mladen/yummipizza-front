@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -7,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -15,11 +13,7 @@ import Link from '@material-ui/core/Link';
 
 import { red, yellow } from '@material-ui/core/colors';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import PizzaIcon from '@material-ui/icons/LocalPizza';
-import YourPizzasIcon from '@material-ui/icons/LocalPizzaOutlined';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
+
 import CurrencyUsd from '@material-ui/icons/AttachMoney';
 
 import { PizzaContext } from './PizzaContext';
@@ -39,12 +33,6 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  header: {
-    backgroundColor: red.A700,
-  },
-  icon: {
-    marginRight: theme.spacing(2),
-  },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
@@ -117,30 +105,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Pizzeria() {
   const classes = useStyles();
 
-  const [pizzas] = useContext(PizzaContext);
+  const { pizzas } = useContext(PizzaContext);
   const { cart, addToCart, total } = useContext(CartContext);
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="relative" className={classes.header}>
-        <Toolbar>
-          <PizzaIcon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
-            The Yummi Pizza
-          </Typography>
-
-          <MenuItem align="right">
-            <IconButton aria-label="show 11 new notifications" color="inherit">
-              <Badge badgeContent={cart.length} color="secondary">
-                <YourPizzasIcon />
-              </Badge>
-            </IconButton>
-            <p>Your pizzas (${total})</p>
-          </MenuItem>
-        </Toolbar>
-      </AppBar>
-
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -151,6 +121,11 @@ export default function Pizzeria() {
             <Typography variant="h5" align="center" paragraph>
               Order some yummi pizzas!
             </Typography>
+
+            {/* {cart.map((cartItem, index) => ({index}) )} */}
+            {cart.length}
+            /
+            {total}
 
             {/* Hero buttons */}
             <div className={classes.heroButtons}>

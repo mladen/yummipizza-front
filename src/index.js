@@ -4,9 +4,17 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// Contexts
+import { PizzaProvider } from './PizzaContext';
+import { CartProvider } from './CartContext';
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CartProvider>
+      <PizzaProvider>
+        <App />
+      </PizzaProvider>
+    </CartProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
