@@ -8,6 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { lightGreen } from '@material-ui/core/colors';
+import Button from '@material-ui/core/Button';
+import ArrowUp from '@material-ui/icons/ArrowUpwardSharp';
+import ArrowDown from '@material-ui/icons/ArrowDownwardSharp';
 
 // Contexts
 import { CartContext } from './CartContext';
@@ -74,7 +77,13 @@ const rows = [
 
 export default function Cart() {
   const classes = useStyles();
-  const { cart, addToCart, total } = React.useContext(CartContext);
+  const {
+    cart,
+    addToCart,
+    total,
+    increaseAmount,
+    decreaseAmount
+  } = React.useContext(CartContext);
 
   return (
     <React.Fragment>
@@ -100,9 +109,27 @@ export default function Cart() {
             {cart.map((item) => (
               <StyledTableRow key={item.id}>
                 <StyledTableCell>{item.name}</StyledTableCell>
+                <StyledTableCell align="right">
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<ArrowUp />}
+                    onClick={() => {
+                      increaseAmount(item.id);
+                    }}>More</Button>
+                  &nbsp;&nbsp;{item.amount}&nbsp;&nbsp;
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<ArrowDown />}
+                    onClick={() => {
+                      decreaseAmount(item.id, item.amount);
+                    }}>Less</Button>
+                </StyledTableCell>
                 <StyledTableCell align="right">{item.price}</StyledTableCell>
-                <StyledTableCell align="right">{item.price}</StyledTableCell>
-                <StyledTableCell align="right">{ccyFormat(item.price)}</StyledTableCell>
+                <StyledTableCell align="right">{ccyFormat(item.price * item.amount)}</StyledTableCell>
               </StyledTableRow>
             ))}
 
