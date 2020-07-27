@@ -44,7 +44,7 @@ function App() {
   const classes = useStyles();
 
   // const { pizzas } = React.useContext(PizzaContext);
-  const { cart, addToCart, total } = React.useContext(CartContext);
+  const { cart, cartItems, total } = React.useContext(CartContext);
   console.log("cart is: ", cart);
 
   return (
@@ -63,7 +63,7 @@ function App() {
           <RouterLink to="/cart" className={classes.linkStyle}>
             <MenuItem align="right">
               <IconButton aria-label="show 11 new notifications" color="inherit">
-                <Badge badgeContent={cart.length} color="secondary">
+                <Badge badgeContent={cartItems} color="secondary">
                   <YourPizzasIcon />
                 </Badge>
               </IconButton>

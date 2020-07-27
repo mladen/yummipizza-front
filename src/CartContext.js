@@ -81,6 +81,7 @@ export const CartProvider = props => {
       value={{
         cart,
         addToCart,
+        cartItems,
         total,
         increaseAmount,
         decreaseAmount
