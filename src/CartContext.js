@@ -59,9 +59,19 @@ export const CartProvider = props => {
 
   // * Add to cart
   const addToCart = e => {
-    // const {id, name, price} = product;
-    const newPizza = JSON.parse(e.target.parentElement.value);
-    setCart(prevCartPizzas => [...prevCartPizzas, newPizza]);
+    const newMeal = JSON.parse(e.target.parentElement.value);
+    // setCart(prevCartPizzas => [...prevCartPizzas, newPizza]);
+
+    const item = [...cart].find(item => item.id === newMeal.id);
+
+    if (item) {
+      increaseAmount(newMeal.id);
+      return;
+    } else {
+      const newItem = { ...newMeal, amount: 1 };
+      const newCart = [...cart, newItem];
+      setCart(newCart);
+    }
   };
   // // TODO: Clear cart
   // const clearCart = () => {};
