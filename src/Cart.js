@@ -12,7 +12,7 @@ import { lightGreen } from '@material-ui/core/colors';
 // Contexts
 import { CartContext } from './CartContext';
 
-const TAX_RATE = 0.07;
+const DELIVERY_COST = 3;
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -67,9 +67,9 @@ const rows = [
   createRow('Waste Basket', 2, 17.99),
 ];
 
-const invoiceSubtotal = subtotal(rows);
-const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-const invoiceTotal = invoiceTaxes + invoiceSubtotal;
+// const invoiceSubtotal = total; //subtotal(rows);
+// const DELIVER = DELIVERY_COST * invoiceSubtotal;
+// const invoiceTotal = DELIVERY_COST + invoiceSubtotal;
 
 
 export default function Cart() {
@@ -83,7 +83,7 @@ export default function Cart() {
           <TableHead>
             {/* Details and Price */}
             <StyledTableRow>
-              <StyledTableCell align="center" colSpan={3}>Details</StyledTableCell>
+              <StyledTableCell align="center" colSpan={3}>Receipt details</StyledTableCell>
               <StyledTableCell align="right">Price</StyledTableCell>
             </StyledTableRow>
 
@@ -91,18 +91,18 @@ export default function Cart() {
             <StyledTableRow>
               <StyledTableCell>Desc</StyledTableCell>
               <StyledTableCell align="right">Qty.</StyledTableCell>
-              <StyledTableCell align="right">Unit</StyledTableCell>
+              <StyledTableCell align="right">Unit price</StyledTableCell>
               <StyledTableCell align="right">Sum</StyledTableCell>
             </StyledTableRow>
           </TableHead>
 
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.desc}>
-                <StyledTableCell>{row.desc}</StyledTableCell>
-                <StyledTableCell align="right">{row.qty}</StyledTableCell>
-                <StyledTableCell align="right">{row.unit}</StyledTableCell>
-                <StyledTableCell align="right">{ccyFormat(row.price)}</StyledTableCell>
+            {cart.map((item) => (
+              <StyledTableRow key={item.id}>
+                <StyledTableCell>{item.name}</StyledTableCell>
+                <StyledTableCell align="right">{item.price}</StyledTableCell>
+                <StyledTableCell align="right">{item.price}</StyledTableCell>
+                <StyledTableCell align="right">{ccyFormat(item.price)}</StyledTableCell>
               </StyledTableRow>
             ))}
 
@@ -110,20 +110,37 @@ export default function Cart() {
             <TableRow>
               <StyledTableCell rowSpan={3} />
               <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
-              <StyledTableCell align="right">{ccyFormat(invoiceSubtotal)}</StyledTableCell>
+              <StyledTableCell align="right">{ccyFormat(total)}</StyledTableCell>
             </TableRow>
 
             {/* Tax */}
             <TableRow>
-              <StyledTableCell>Tax</StyledTableCell>
-              <StyledTableCell align="right">{`${(TAX_RATE * 100).toFixed(0)} %`}</StyledTableCell>
-              <StyledTableCell align="right">{ccyFormat(invoiceTaxes)}</StyledTableCell>
+              <StyledTableCell>Delivery cost</StyledTableCell>
+              <StyledTableCell align="right">
+                {`${
+                  total > 5
+                  ? "No delivery charge for receipts bigger than 5 Euros"
+                  : "3"}`}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {`${
+                  total > 5
+                  ? 0
+                  : ccyFormat(DELIVERY_COST)}`}
+              </StyledTableCell>
             </TableRow>
 
             {/* Total */}
             <TableRow>
               <StyledTableCell colSpan={2}>Total</StyledTableCell>
-              <StyledTableCell align="right">{ccyFormat(invoiceTotal)}</StyledTableCell>
+              <StyledTableCell align="right">
+                <strong>
+                  {`${
+                    (total > 5)
+                    ? ccyFormat(total)
+                    : ccyFormat(total + DELIVERY_COST)}`}
+                </strong>
+              </StyledTableCell>
             </TableRow>
           </TableBody>
         </Table>
