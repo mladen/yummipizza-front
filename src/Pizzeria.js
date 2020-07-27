@@ -166,7 +166,13 @@ export default function Pizzeria() {
                     </Button>
                     <Button
                       onClick={addToCart}
-                      value={JSON.stringify({id: pizza.id, name: pizza.name, price: parseInt(pizza.price)})}
+                      value={
+                        JSON.stringify({
+                          id: pizza.id,
+                          name: pizza.name,
+                          price: parseInt(pizza.price),
+                          amount: 1
+                        })}
                       size="medium"
                       variant="contained"
                       color="secondary"
