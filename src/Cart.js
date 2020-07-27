@@ -11,6 +11,10 @@ import { lightGreen } from '@material-ui/core/colors';
 import Button from '@material-ui/core/Button';
 import ArrowUp from '@material-ui/icons/ArrowUpwardSharp';
 import ArrowDown from '@material-ui/icons/ArrowDownwardSharp';
+import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 // Contexts
 import { CartContext } from './CartContext';
@@ -35,17 +39,23 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
   table: {
     width: '90%',
     margin: '35px auto 0 auto',
-    // padding: '25px',
-    // display: 'flex',
-    // flexDirection: 'column',
     minWidth: 700,
     boxShadow: 'none',
   },
-});
+  orderButton: {
+    margin: '20px auto 0'
+  }
+}));
 
 function ccyFormat(num) {
   return `${num.toFixed(2)}`;
@@ -60,23 +70,26 @@ function createRow(desc, qty, unit) {
   return { desc, qty, unit, price };
 }
 
-function subtotal(items) {
-  return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
-const rows = [
-  createRow('Paperclips (Box)', 100, 1.15),
-  createRow('Paper (Case)', 10, 45.99),
-  createRow('Waste Basket', 2, 17.99),
-];
-
-// const invoiceSubtotal = total; //subtotal(rows);
-// const DELIVER = DELIVERY_COST * invoiceSubtotal;
-// const invoiceTotal = DELIVERY_COST + invoiceSubtotal;
-
 
 export default function Cart() {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const {
     cart,
     addToCart,
@@ -172,6 +185,22 @@ export default function Cart() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Button
+        onClick={handleClick}
+        size="large"
+        variant="contained"
+        color="secondary"
+        startIcon={<ShoppingBasket />}
+        className={classes.orderButton}>
+        Confirm order
+      </Button>
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Your order is confirmed!
+        </Alert>
+      </Snackbar>
     </React.Fragment>
   );
 }
