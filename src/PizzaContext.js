@@ -63,7 +63,14 @@ export const PizzaProvider = props => {
     // },
   ]);
 
-  const url = "https://run.mocky.io/v3/06276abe-6134-444a-a100-83e0c8093bae";
+  // * Mocky's test API
+  // const url = "https://run.mocky.io/v3/06276abe-6134-444a-a100-83e0c8093bae";
+
+  // * Data from the DB
+  const url = "http://127.0.0.1:8000/api/meals";
+
+  // * Data from the test DB I made on remotemysql.com
+  // const url = "https://yummipizza-api-test.herokuapp.com/api/meals";
 
   React.useEffect(() => {
     axios.get(`${url}`).then(response => {
