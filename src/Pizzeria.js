@@ -154,7 +154,7 @@ export default function Pizzeria() {
                   <CardMedia className={classes.cardMedia} image="./pizza1.png" title="Our Yummi Pizza.. Mmm.."/>
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Pizza {pizza.id}: {pizza.name}
+                      Meal {pizza.id}: {pizza.name}
                     </Typography>
                     <Typography>
                       {pizza.description}
