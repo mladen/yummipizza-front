@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import ArrowUp from '@material-ui/icons/ArrowUpwardSharp';
 import ArrowDown from '@material-ui/icons/ArrowDownwardSharp';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+import IconButton from '@material-ui/core/IconButton';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -123,23 +124,17 @@ export default function Cart() {
               <StyledTableRow key={item.id}>
                 <StyledTableCell>{item.name}</StyledTableCell>
                 <StyledTableCell align="right">
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<ArrowUp />}
+                  <IconButton
+                    color="secondary"
                     onClick={() => {
                       increaseAmount(item.id);
-                    }}>More</Button>
+                    }}><ArrowUp /></IconButton>
                   &nbsp;&nbsp;{item.amount}&nbsp;&nbsp;
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<ArrowDown />}
+                  <IconButton
+                    color="secondary"
                     onClick={() => {
                       decreaseAmount(item.id, item.amount);
-                    }}>Less</Button>
+                    }}><ArrowDown /></IconButton>
                 </StyledTableCell>
                 <StyledTableCell align="right">{item.price}</StyledTableCell>
                 <StyledTableCell align="right">{ccyFormat(item.price * item.amount)}</StyledTableCell>
