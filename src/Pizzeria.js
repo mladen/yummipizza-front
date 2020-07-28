@@ -165,14 +165,14 @@ export default function Pizzeria() {
                       <CurrencyUsd />{pizza.price}
                     </Button>
                     <Button
-                      onClick={addToCart}
-                      value={
-                        JSON.stringify({
+                      onClick={() => { addToCart(
+                        {
                           id: pizza.id,
                           name: pizza.name,
                           price: parseInt(pizza.price),
                           amount: 1
-                        })}
+                        }
+                      ); }}
                       size="medium"
                       variant="contained"
                       color="secondary"
