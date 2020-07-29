@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
   },
   linkStyle: {
     textDecoration: 'none',
-    color: 'white'
+    color: 'white',
+    fontFamily: 'Leckerli One, cursive',
   },
   title: {
     flexGrow: 1,
