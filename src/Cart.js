@@ -19,8 +19,10 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 // Contexts
 import { CartContext } from './CartContext';
+import { PizzaContext } from './PizzaContext';
 
 const DELIVERY_COST = 3;
+const USD_RATE = 1.1713;
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -91,6 +93,8 @@ export default function Cart() {
     setOpen(false);
   };
 
+  const { currency, setCurrency } = React.useContext(PizzaContext);
+
   const {
     cart,
     addToCart,
@@ -136,8 +140,20 @@ export default function Cart() {
                       decreaseAmount(item.id, item.amount);
                     }}><ArrowDown /></IconButton>
                 </StyledTableCell>
-                <StyledTableCell align="right">{item.price}</StyledTableCell>
-                <StyledTableCell align="right">{ccyFormat(item.price * item.amount)}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {
+                    currency === "usd"
+                      ? (item.price * USD_RATE).toFixed(2)
+                      : item.price
+                  }
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {
+                    currency === "usd"
+                      ? (item.price * item.amount * USD_RATE).toFixed(2)
+                      : item.price * item.amount
+                  }
+                </StyledTableCell>
               </StyledTableRow>
             ))}
 
@@ -145,23 +161,31 @@ export default function Cart() {
             <TableRow>
               <StyledTableCell rowSpan={3} />
               <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
-              <StyledTableCell align="right">{ccyFormat(total)}</StyledTableCell>
+              <StyledTableCell align="right">
+                {
+                  currency === "usd"
+                    ? (total * USD_RATE).toFixed(2)
+                    : total
+                  }
+              </StyledTableCell>
             </TableRow>
 
             {/* Tax */}
-            <TableRow>
+            <TableRow >
               <StyledTableCell>Delivery cost</StyledTableCell>
               <StyledTableCell align="right">
-                {`${
+                {
                   total > 5
-                  ? "No delivery charge for receipts bigger than 5 Euros"
-                  : "3"}`}
+                  ? "No delivery charge for receipts bigger than " + (currency === "usd" ? (5*USD_RATE).toFixed(2) + " USD" : "5 EUR")
+                  : (currency === "usd" ? (3*USD_RATE).toFixed(2) : "3")
+                }
               </StyledTableCell>
               <StyledTableCell align="right">
-                {`${
+                {
                   total > 5
                   ? 0
-                  : ccyFormat(DELIVERY_COST)}`}
+                  : (currency === "usd" ? (DELIVERY_COST * USD_RATE).toFixed(2) : DELIVERY_COST)
+                }
               </StyledTableCell>
             </TableRow>
 
@@ -170,10 +194,11 @@ export default function Cart() {
               <StyledTableCell colSpan={2}>Total</StyledTableCell>
               <StyledTableCell align="right">
                 <strong>
-                  {`${
+                  {
                     (total > 5)
-                    ? ccyFormat(total)
-                    : ccyFormat(total + DELIVERY_COST)}`}
+                    ? (currency === "usd" ? (total * USD_RATE).toFixed(2) + " USD" : total.toFixed(2) + " EUR")
+                    : (currency === "usd" ? ((total + DELIVERY_COST) * USD_RATE).toFixed(2) + " USD" : (total + DELIVERY_COST).toFixed(2) + " EUR")
+                  }
                 </strong>
               </StyledTableCell>
             </TableRow>

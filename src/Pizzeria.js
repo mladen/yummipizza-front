@@ -15,6 +15,7 @@ import { red, yellow } from '@material-ui/core/colors';
 import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 
 import CurrencyUsd from '@material-ui/icons/AttachMoney';
+import CurrencyEur from '@material-ui/icons/Euro';
 
 import { PizzaContext } from './PizzaContext';
 import { CartContext } from './CartContext';
@@ -105,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Pizzeria() {
   const classes = useStyles();
 
-  const { pizzas } = useContext(PizzaContext);
+  const { pizzas, currency } = useContext(PizzaContext);
   const { cart, addToCart, total } = useContext(CartContext);
 
   return (
@@ -161,8 +162,17 @@ export default function Pizzeria() {
                     </Typography>
                   </CardContent>
                   <CardActions className={classes.cardActionButtons}>
-                    <Button size="medium" variant="outlined" color="primary">
-                      <CurrencyUsd />{pizza.price}
+                    <Button size="medium" color="secondary">
+                      {
+                        (currency === "usd")
+                          ? <CurrencyUsd />
+                          : <CurrencyEur />
+                      }
+                      {
+                        (currency === "usd")
+                        ? pizza.priceusd
+                        : pizza.price
+                      }
                     </Button>
                     <Button
                       onClick={() => { addToCart(
