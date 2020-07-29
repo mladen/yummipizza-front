@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter as Router, Route, Link as RouterLink} from 'react-router-dom';
 import Pizzeria from './Pizzeria.js';
 import Cart from './Cart.js';
-// import Checkout from './Checkout.js';
+import Checkout from './Checkout.js';
 // import Error from './Error.js';
 
 // Contexts
@@ -162,6 +162,12 @@ function App() {
       <Route exact path="/cart">
         <div className="App">
           <Cart></Cart>
+        </div>
+      </Route>
+
+      <Route exact path="/checkout">
+        <div className="App">
+          <Checkout></Checkout>
         </div>
       </Route>
     </Router>

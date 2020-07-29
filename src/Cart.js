@@ -11,11 +11,13 @@ import { lightGreen } from '@material-ui/core/colors';
 import Button from '@material-ui/core/Button';
 import ArrowUp from '@material-ui/icons/ArrowUpwardSharp';
 import ArrowDown from '@material-ui/icons/ArrowDownwardSharp';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import IconButton from '@material-ui/core/IconButton';
+// import Link from '@material-ui/core/Link';
+import Icon from '@material-ui/core/Icon';
+import SendIcon from '@material-ui/icons/SendSharp';
 
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import { MemoryRouter as Router } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 
 // Contexts
 import { CartContext } from './CartContext';
@@ -55,30 +57,13 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 700,
     boxShadow: 'none',
   },
-  orderButton: {
+  checkoutButton: {
     margin: '20px auto 0'
   }
 }));
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 export default function Cart() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const { currency, setCurrency } = React.useContext(PizzaContext);
 
@@ -212,20 +197,14 @@ export default function Cart() {
       </TableContainer>
 
       <Button
-        onClick={handleClick}
-        size="large"
-        variant="contained"
         color="secondary"
-        startIcon={<ShoppingBasket />}
-        className={classes.orderButton}>
-        Confirm order
+        className={classes.checkoutButton}
+        component={RouterLink}
+        to="/checkout"
+        variant="contained"
+        endIcon={<SendIcon />}>
+        Check out your receipt
       </Button>
-
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          Your order is confirmed!
-        </Alert>
-      </Snackbar>
     </React.Fragment>
   );
 }
