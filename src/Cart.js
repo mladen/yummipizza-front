@@ -60,19 +60,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ccyFormat(num) {
-  return `${num.toFixed(2)}`;
-}
-
-function priceRow(qty, unit) {
-  return qty * unit;
-}
-
-function createRow(desc, qty, unit) {
-  const price = priceRow(qty, unit);
-  return { desc, qty, unit, price };
-}
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -175,16 +162,34 @@ export default function Cart() {
               <StyledTableCell>Delivery cost</StyledTableCell>
               <StyledTableCell align="right">
                 {
-                  total > 5
-                  ? "No delivery charge for receipts bigger than " + (currency === "usd" ? (5*USD_RATE).toFixed(2) + " USD" : "5 EUR")
-                  : (currency === "usd" ? (3*USD_RATE).toFixed(2) : "3")
+                  (() => {
+                    switch (true) {
+                      case total === 0:
+                        return "";
+                      case (total > 0 && total <= 5):
+                        return (currency === "usd" ? (3*USD_RATE).toFixed(2) : "3");
+                      case total > 5:
+                        return "No delivery charge for receipts bigger than " + (currency === "usd" ? (5*USD_RATE).toFixed(2) + " USD" : "5 EUR");
+                      default:
+                        break;
+                    }
+                  })()
                 }
               </StyledTableCell>
               <StyledTableCell align="right">
                 {
-                  total > 5
-                  ? 0
-                  : (currency === "usd" ? (DELIVERY_COST * USD_RATE).toFixed(2) : DELIVERY_COST)
+                  (() => {
+                    switch (true) {
+                      case total === 0:
+                        return 0;
+                      case (total > 0 && total <= 5):
+                        return (currency === "usd" ? (3*USD_RATE).toFixed(2) : "3");
+                      case total > 5:
+                        return 0;
+                      default:
+                        break;
+                    }
+                  })()
                 }
               </StyledTableCell>
             </TableRow>
@@ -195,9 +200,9 @@ export default function Cart() {
               <StyledTableCell align="right">
                 <strong>
                   {
-                    (total > 5)
-                    ? (currency === "usd" ? (total * USD_RATE).toFixed(2) + " USD" : total.toFixed(2) + " EUR")
-                    : (currency === "usd" ? ((total + DELIVERY_COST) * USD_RATE).toFixed(2) + " USD" : (total + DELIVERY_COST).toFixed(2) + " EUR")
+                    (total > 0 && total <= 5)
+                    ? (currency === "usd" ? ((total + DELIVERY_COST) * USD_RATE).toFixed(2) + " USD" : (total + DELIVERY_COST).toFixed(2) + " EUR")
+                    : (currency === "usd" ? (total * USD_RATE).toFixed(2) + " USD" : total.toFixed(2) + " EUR")
                   }
                 </strong>
               </StyledTableCell>
