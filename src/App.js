@@ -27,6 +27,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
 
+const DELIVERY_COST = 3;
 const USD_RATE = 1.1713;
 
 const useStyles = makeStyles((theme) => ({
@@ -138,9 +139,13 @@ function App() {
               </IconButton>
               <p>Your cart (
                 {
-                  (currency === "usd")
-                    ? `${(total * USD_RATE).toFixed(2)} USD`
-                    : `${total.toFixed(2)} EUR`
+                  (total > 0 && total <= 5)
+                  ? (
+                      currency === "usd"
+                        ? (total * USD_RATE).toFixed(2) + " + " + (DELIVERY_COST * USD_RATE).toFixed(2) + " USD (delivery)"
+                        : total.toFixed(2) + " + " + DELIVERY_COST.toFixed(2) + " EUR (delivery)"
+                    )
+                  : (currency === "usd" ? (total * USD_RATE).toFixed(2) + " USD" : total.toFixed(2) + " EUR")
                 }
               )</p>
             </MenuItem>
