@@ -122,27 +122,6 @@ export default function Pizzeria() {
             <Typography variant="h5" align="center" paragraph>
               Order some yummi pizzas!
             </Typography>
-
-            {/* {cart.map((cartItem, index) => ({index}) )} */}
-            {cart.length}
-            /
-            {total}
-
-            {/* Hero buttons */}
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <Button variant="contained" color="secondary">
-                    Main call to action
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" color="secondary">
-                    Secondary action
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
           </Container>
         </div>
 
