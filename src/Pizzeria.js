@@ -177,15 +177,17 @@ export default function Pizzeria() {
       </main>
 
       {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          The Yummi Pizza Co.
-        </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          We love pizzas!
-        </Typography>
-        <Copyright />
-      </footer>
+      {pizzas.length > 0 &&
+        <footer className={classes.footer}>
+          <Typography variant="h6" align="center" gutterBottom>
+            The Yummi Pizza Co.
+          </Typography>
+          <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+            We love pizzas!
+          </Typography>
+          <Copyright />
+        </footer>
+      }
       {/* End footer */}
     </React.Fragment>
   );
