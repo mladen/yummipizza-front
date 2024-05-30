@@ -1,12 +1,12 @@
-import React, { useState, createContext } from 'react';
-import axios from 'axios';
+import React, { useState, createContext } from "react";
+import axios from "axios";
 
 export const PizzaContext = createContext();
 const USD_RATE = 1.1713;
 
-export const PizzaProvider = props => {
+export const PizzaProvider = (props) => {
   // * Default currency is EUR
-  const [currency, setCurrency] = useState('eur');
+  const [currency, setCurrency] = useState("eur");
   const [pizzas, setPizzas] = useState([]);
 
   // * Mocky's test API
@@ -16,11 +16,12 @@ export const PizzaProvider = props => {
   // const url = "http://127.0.0.1:8000/api/meals";
 
   // * Data from the test DB I made on remotemysql.com
-  const url = "https://yummipizza-api-test.herokuapp.com/api/meals";
+  // const url = "https://yummipizza-api-test.herokuapp.com/api/meals";
+  const url = "http://localhost:5000/api/meals";
 
   React.useEffect(() => {
     async function fetchMeals() {
-      const response = await axios.get(`${url}`).then(response => {
+      const response = await axios.get(`${url}`).then((response) => {
         console.log("response", response);
 
         // As soon as we get the data we add a priceusd
@@ -39,10 +40,15 @@ export const PizzaProvider = props => {
     fetchMeals();
   }, []);
 
-  return <PizzaContext.Provider
-    value={{
-      pizzas,
-      currency,
-      setCurrency
-    }}>{ props.children }</PizzaContext.Provider>;
-}
+  return (
+    <PizzaContext.Provider
+      value={{
+        pizzas,
+        currency,
+        setCurrency,
+      }}
+    >
+      {props.children}
+    </PizzaContext.Provider>
+  );
+};
