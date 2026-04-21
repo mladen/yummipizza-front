@@ -16,8 +16,8 @@ export const PizzaProvider = (props) => {
   // const url = "http://127.0.0.1:8000/api/meals";
 
   // * Data from the test DB I made on remotemysql.com
-  // const url = "https://yummipizza-api-test.herokuapp.com/api/meals";
-  const url = "http://localhost:5000/api/meals";
+  const url = "https://timerini.com/api/meals";
+  // const url = "http://localhost:5000/api/meals";
 
   React.useEffect(() => {
     async function fetchMeals() {
