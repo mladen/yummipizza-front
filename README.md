@@ -1,12 +1,10 @@
-# The Yummi Pizza (Test project)
-
-This code is deployed on Heroku and can be found on https://yummipizza-front-test.herokuapp.com/
+# Frontend for The Yummi Pizza (Test project, done 6 years ago)
 
 ## Available Scripts (local)
 
-In the project directory, you can run:
+In the project directory (in Terminal), you can run:
 
-### `yarn start`
+`npm run start` or `yarn start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
