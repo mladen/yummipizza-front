@@ -21,7 +21,8 @@ export const PizzaProvider = (props) => {
 
   React.useEffect(() => {
     async function fetchMeals() {
-      const response = await axios.get(`${url}`).then((response) => {
+      try {
+        const response = await axios.get(url);
         console.log("response", response);
 
         // As soon as we get the data we add a priceusd
@@ -32,7 +33,9 @@ export const PizzaProvider = (props) => {
         });
 
         setPizzas(response.data);
-      });
+      } catch (error) {
+        console.error("Error fetching meals", error);
+      }
     }
 
     // Async functions in React.useEffect must be done this way

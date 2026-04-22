@@ -13,10 +13,8 @@ import ArrowUp from '@material-ui/icons/ArrowUpwardSharp';
 import ArrowDown from '@material-ui/icons/ArrowDownwardSharp';
 import IconButton from '@material-ui/core/IconButton';
 // import Link from '@material-ui/core/Link';
-import Icon from '@material-ui/core/Icon';
 import SendIcon from '@material-ui/icons/SendSharp';
 
-import { MemoryRouter as Router } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 
 // Contexts
@@ -68,11 +66,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Cart() {
   const classes = useStyles();
 
-  const { currency, setCurrency } = React.useContext(PizzaContext);
+  const { currency } = React.useContext(PizzaContext);
 
   const {
     cart,
-    addToCart,
     total,
     increaseAmount,
     decreaseAmount
